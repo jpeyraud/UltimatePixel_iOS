@@ -17,6 +17,8 @@
 		5813BA1A1E1670500021F419 /* PlayStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5813BA191E1670500021F419 /* PlayStoryboard.storyboard */; };
 		5813BA1C1E16A4950021F419 /* GameEngineController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813BA1B1E16A4950021F419 /* GameEngineController.swift */; };
 		5813BA1E1E16B96D0021F419 /* PixelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813BA1D1E16B96D0021F419 /* PixelCell.swift */; };
+		58FAB2361E19949D00E109BF /* TargetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FAB2351E19949D00E109BF /* TargetLabel.swift */; };
+		58FAB2381E1998E100E109BF /* PlayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FAB2371E1998E100E109BF /* PlayHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		5813BA191E1670500021F419 /* PlayStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlayStoryboard.storyboard; sourceTree = "<group>"; };
 		5813BA1B1E16A4950021F419 /* GameEngineController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEngineController.swift; sourceTree = "<group>"; };
 		5813BA1D1E16B96D0021F419 /* PixelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelCell.swift; sourceTree = "<group>"; };
+		58FAB2351E19949D00E109BF /* TargetLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetLabel.swift; sourceTree = "<group>"; };
+		58FAB2371E1998E100E109BF /* PlayHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 			children = (
 				5813BA0E1E140A8E0021F419 /* MenuButton.swift */,
 				5813BA1D1E16B96D0021F419 /* PixelCell.swift */,
+				58FAB2351E19949D00E109BF /* TargetLabel.swift */,
+				58FAB2371E1998E100E109BF /* PlayHeader.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -195,9 +201,11 @@
 			files = (
 				5813BA1C1E16A4950021F419 /* GameEngineController.swift in Sources */,
 				5813BA161E141A920021F419 /* PlayViewController.swift in Sources */,
+				58FAB2381E1998E100E109BF /* PlayHeader.swift in Sources */,
 				5813BA1E1E16B96D0021F419 /* PixelCell.swift in Sources */,
 				5813B9FA1E1403B20021F419 /* MainViewController.swift in Sources */,
 				5813BA0F1E140A8E0021F419 /* MenuButton.swift in Sources */,
+				58FAB2361E19949D00E109BF /* TargetLabel.swift in Sources */,
 				5813B9F81E1403B20021F419 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +370,7 @@
 				5813BA081E1403B20021F419 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

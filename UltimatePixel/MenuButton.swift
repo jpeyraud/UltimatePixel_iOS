@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class BorderedButton: UIButton {
+class MenuButton: UIButton {
   
         @IBInspectable var borderWidth: CGFloat = 0 {
             didSet {
@@ -28,7 +28,8 @@ class BorderedButton: UIButton {
                 setBgColorForState(color: normalBackgroundColor, forState: .normal)
             }
         }
-    
+        
+        
         //Highlighted state bg and border
         @IBInspectable var highlightedBorderColor: UIColor?
         
@@ -37,6 +38,7 @@ class BorderedButton: UIButton {
                 setBgColorForState(color: highlightedBackgroundColor, forState: .highlighted)
             }
         }
+        
         
         private func setBgColorForState(color: UIColor?, forState: UIControlState){
             if color != nil {

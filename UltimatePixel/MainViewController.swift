@@ -12,14 +12,14 @@ import Foundation
 class MainViewController: UIViewController {
 
     // MARK: Actions
-    @IBAction func play(_ sender: BorderedButton) {
+    @IBAction func play(_ sender: MenuButton) {
         let storyboard = UIStoryboard(name: "PlayStoryboard", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "PlayViewController")
         self.present(controller, animated: true, completion: nil)
     }
-    @IBAction func pixels(_ sender: BorderedButton) {
+    @IBAction func pixels(_ sender: MenuButton) {
     }
-    @IBAction func settings(_ sender: BorderedButton) {
+    @IBAction func settings(_ sender: MenuButton) {
     }
     
     

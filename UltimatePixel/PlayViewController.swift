@@ -12,6 +12,8 @@ class PlayViewController: UICollectionViewController {
     
     var gameEngine: GameEngineController = GameEngineController()
     
+    fileprivate weak var playHeader: PlayHeader?
+    
     // MARK: - Properties
     fileprivate let reuseCellIdentifier = "PixelCell"
     fileprivate let reuseHeaderIdentifier = "PlayHeader"
@@ -35,18 +37,25 @@ extension PlayViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseCellIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseCellIdentifier,
+                                                      for: indexPath)
         cell.backgroundColor = gameEngine.newUIPixel(indexPath.item)
-        // Configure the cell
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var reusableView: UICollectionReusableView
-        reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath)
-        // Configure the header
-        return reusableView;
+        var reusableHeaderView: UICollectionReusableView
+        reusableHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                             withReuseIdentifier: reuseHeaderIdentifier,
+                                                                             for: indexPath)
+        playHeader = reusableHeaderView as? PlayHeader
+        gameEngine.initTarget {
+            _ , withColor in
+            playHeader?.target.backgroundColor = withColor
+        }
+        return reusableHeaderView;
     }
+    
 }
 
 // UICollectionViewDelegate
@@ -61,9 +70,7 @@ extension PlayViewController {
         }
         gameEngine.intentToChangeTarget() {
             _ , withColor in
-            //target.backgroundColor = .blue
-            
-            // TODO: update target
+            playHeader?.target.backgroundColor = withColor
         }
         //collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.gray
     }

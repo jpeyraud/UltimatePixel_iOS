@@ -29,10 +29,10 @@ class GameEngineController {
 
     init() {
         rows = 6
-        cols = 4
+        cols = 6
         colors = 3
         target = .white
-        targetChangeRatePerCent = 12
+        targetChangeRatePerCent = 25
         pixels = Array(repeating: PixelColor.white, count: rows*cols)
     }
     
@@ -50,6 +50,11 @@ class GameEngineController {
         guard (arc4random_uniform(100)+1 <= targetChangeRatePerCent) else {
             return
         }
+        target = newPixel()
+        updateUIPixel(-1, convertToUIColor(target))
+    }
+    
+    func initTarget(updateUIPixel: UpdateUIPixel) {
         target = newPixel()
         updateUIPixel(-1, convertToUIColor(target))
     }

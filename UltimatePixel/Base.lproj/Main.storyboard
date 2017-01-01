@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OO-2t-e2Q" customClass="BorderedButton" customModule="UltimatePixel" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OO-2t-e2Q" customClass="MenuButton" customModule="UltimatePixel" customModuleProvider="target">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="G1c-nu-P6W"/>
                                     <constraint firstAttribute="width" constant="200" id="dqb-Ro-pnk"/>
@@ -49,7 +49,7 @@
                                     <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sbp-xL-OJ0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gF1-Ag-QhN" customClass="BorderedButton" customModule="UltimatePixel" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gF1-Ag-QhN" customClass="MenuButton" customModule="UltimatePixel" customModuleProvider="target">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Nbw-gP-dEo"/>
                                     <constraint firstAttribute="width" constant="200" id="Tft-BF-692"/>
@@ -81,7 +81,7 @@
                                     <action selector="pixels:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Znf-10-5SR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q64-2I-8Wn" customClass="BorderedButton" customModule="UltimatePixel" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q64-2I-8Wn" customClass="MenuButton" customModule="UltimatePixel" customModuleProvider="target">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Wym-xC-sGk"/>
                                     <constraint firstAttribute="height" constant="60" id="vDy-8V-HZX"/>
