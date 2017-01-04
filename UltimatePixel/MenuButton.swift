@@ -28,8 +28,7 @@ class MenuButton: UIButton {
                 setBgColorForState(color: normalBackgroundColor, forState: .normal)
             }
         }
-        
-        
+    
         //Highlighted state bg and border
         @IBInspectable var highlightedBorderColor: UIColor?
         
@@ -38,7 +37,6 @@ class MenuButton: UIButton {
                 setBgColorForState(color: highlightedBackgroundColor, forState: .highlighted)
             }
         }
-        
         
         private func setBgColorForState(color: UIColor?, forState: UIControlState){
             if color != nil {

@@ -16,15 +16,14 @@ class TargetLabel: UILabel {
             layer.borderWidth = borderWidth
         }
     }
-    @IBInspectable var normalBorderColor: UIColor? {
+    @IBInspectable var borderColor: UIColor? {
         didSet {
-            layer.borderColor = normalBorderColor?.cgColor
+            layer.borderColor = borderColor?.cgColor
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         layer.cornerRadius = layer.frame.height / 2
         clipsToBounds = true
     }

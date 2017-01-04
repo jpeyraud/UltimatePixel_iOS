@@ -16,50 +16,53 @@ enum PixelColor: UInt32 {
     case blue = 2
 }
 
-typealias UpdateUIPixel = (_ atIndex: Int, _ withColor: UIColor) -> Void
+typealias UpdatePixelUI = (_ withColor: UIColor?, _ score: Int) -> Void
+typealias UpdateTargetUI = (_ withColor: UIColor) -> Void
 
 class GameEngineController {
     
-    let rows: Int
-    let cols: Int
-    let colors: UInt32
-    var target: PixelColor
+    let itemPerLine: Int
+    let line: Int
+    fileprivate var score: Int
+    fileprivate var time: Int
+    fileprivate let colors: UInt32
+    fileprivate var target: PixelColor
     fileprivate let targetChangeRatePerCent: UInt32
     fileprivate var pixels: [PixelColor]
 
     init() {
-        rows = 6
-        cols = 6
+        itemPerLine = 4
+        line = 5
+        score = 0
+        time = 0
         colors = 3
         target = .white
-        targetChangeRatePerCent = 25
-        pixels = Array(repeating: PixelColor.white, count: rows*cols)
+        targetChangeRatePerCent = 30
+        pixels = Array(repeating: PixelColor.white, count: itemPerLine*line)
     }
     
-    func newPixel() -> PixelColor {
+    fileprivate func createPixel() -> PixelColor {
         return PixelColor(rawValue: arc4random_uniform(colors))!
     }
     
-    func newUIPixel(_ atIndex: Int) -> UIColor {
-        let newPixel: PixelColor = self.newPixel()
-        pixels[atIndex] = newPixel
-        return convertToUIColor(newPixel)
-    }
-    
-    func intentToChangeTarget(updateUIPixel: UpdateUIPixel) {
-        guard (arc4random_uniform(100)+1 <= targetChangeRatePerCent) else {
-            return
+    fileprivate func createPixelDifferentFromTarget() -> PixelColor {
+        var randomPixel = PixelColor(rawValue: arc4random_uniform(colors))
+        while randomPixel == target {
+            randomPixel = PixelColor(rawValue: arc4random_uniform(colors))
         }
-        target = newPixel()
-        updateUIPixel(-1, convertToUIColor(target))
+        return randomPixel!
     }
     
-    func initTarget(updateUIPixel: UpdateUIPixel) {
-        target = newPixel()
-        updateUIPixel(-1, convertToUIColor(target))
+    // create a random pixel color which is in the pixel list
+    fileprivate func createExistingPixel() -> PixelColor {
+        var newPixel = createPixel()
+        while !pixels.contains(newPixel) {
+            newPixel = createPixel()
+        }
+        return newPixel
     }
     
-    func convertToUIColor(_ pixelColor: PixelColor) -> UIColor {
+    fileprivate func convertToUIColor(_ pixelColor: PixelColor) -> UIColor {
         switch pixelColor {
         case .red:
             return UIColor.red
@@ -72,14 +75,35 @@ class GameEngineController {
         }
     }
     
-    func didSelectPixel(_ atIndex: Int, updateUIPixel: UpdateUIPixel) -> Bool {
+    //************************ Public API ************************//
+    
+    func newPixel(_ atIndex: Int) -> UIColor {
+        let newPixel: PixelColor = self.createPixelDifferentFromTarget()
+        pixels[atIndex] = newPixel
+        return convertToUIColor(newPixel)
+    }
+    
+    func intentToChangeTarget(updateTargetUI: UpdateTargetUI) {
+        guard arc4random_uniform(100)+1 <= targetChangeRatePerCent || !pixels.contains(target) else {
+            return
+        }
+        target = createExistingPixel()
+        updateTargetUI(convertToUIColor(target))
+    }
+    
+    func initTarget(updateTargetUI: UpdateTargetUI) {
+        target = createExistingPixel()
+        updateTargetUI(convertToUIColor(target))
+    }
+    
+    func didSelectPixel(_ atIndex: Int, updatePixelUI: UpdatePixelUI) -> Bool {
         guard pixels[atIndex] == target else {
+            score -= 1
+            updatePixelUI(nil, score)
             return false
         }
-        
-        let newPixel = self.newPixel()
-        pixels[atIndex] = newPixel
-        updateUIPixel(atIndex, convertToUIColor(newPixel))
+        score += 1
+        updatePixelUI(newPixel(atIndex), score)
         return true
     }
 }

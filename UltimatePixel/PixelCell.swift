@@ -11,22 +11,20 @@ import UIKit
 @IBDesignable
 class PixelCell: UICollectionViewCell {
     
-    @IBInspectable var borderWidth: CGFloat = 0 {
-        didSet {
-            layer.borderWidth = borderWidth
-        }
-    }
-    @IBInspectable var normalBorderColor: UIColor? {
-        didSet {
-            layer.borderColor = normalBorderColor?.cgColor
-        }
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         layer.cornerRadius = layer.frame.height / 4
         clipsToBounds = true
+        
+        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: layer.cornerRadius).cgPath;
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0.0, height: 0.0);
+        layer.shadowRadius = 3.0;
+        layer.shadowOpacity = 1.0;
+        layer.masksToBounds = false;
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.darkGray.cgColor
     }
     
 }

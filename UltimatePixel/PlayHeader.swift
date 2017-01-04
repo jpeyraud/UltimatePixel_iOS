@@ -11,5 +11,6 @@ import UIKit
 
 class PlayHeader: UICollectionReusableView {
     @IBOutlet weak var target: TargetLabel!
-    
+    @IBOutlet weak var time: TargetLabel!
+    @IBOutlet weak var score: TargetLabel!
 }
