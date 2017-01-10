@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class TargetLabel: UILabel {
+class HeaderLabel: UILabel {
     
     @IBInspectable var borderWidth: CGFloat = 0 {
         didSet {
@@ -21,11 +21,10 @@ class TargetLabel: UILabel {
             layer.borderColor = borderColor?.cgColor
         }
     }
-    
+ 
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = layer.frame.height / 2
         clipsToBounds = true
     }
-    
 }

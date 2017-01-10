@@ -23,7 +23,7 @@ class PixelCell: UICollectionViewCell {
         layer.shadowRadius = 3.0;
         layer.shadowOpacity = 1.0;
         layer.masksToBounds = false;
-        layer.borderWidth = 1
+        layer.borderWidth = 0
         layer.borderColor = UIColor.darkGray.cgColor
     }
     

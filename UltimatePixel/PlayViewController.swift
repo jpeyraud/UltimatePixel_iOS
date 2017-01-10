@@ -11,7 +11,7 @@ import UIKit
 class PlayViewController: UICollectionViewController {
     
     var gameEngine: GameEngineController = GameEngineController()
-    
+
     fileprivate weak var playHeader: PlayHeader?
     
     // MARK: - Properties
@@ -41,6 +41,67 @@ class PlayViewController: UICollectionViewController {
         optimalItemSize = availableScreenWidth / gameEngine.itemPerLine
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        gameEngine.stopGame()
+    }
+    
+    func startGameEngine() {
+        gameEngine.startGame { [weak self] in
+            if let timeInterval = self?.gameEngine.timerInterval {
+                self?.gameEngine.time -= timeInterval
+            }
+            
+            if let time = self?.gameEngine.time {
+                var formatedTime = round(time*10.0)/10.0
+                self?.gameEngine.time = formatedTime
+                
+                if formatedTime <= 0.0 {
+                    formatedTime = 0.0
+                    self?.playHeader?.time.borderColor = UIColor.red
+                    self?.gameEngine.stopGame()
+                }
+                
+                self?.playHeader?.time.text = "\(formatedTime)"
+            }
+        }
+        playHeader?.targetLabel.alpha = 0.0
+        playHeader?.instructionLabel.alpha = 0.0
+    }
+    
+    func handlePlayerTouch(at: IndexPath, onCell: UICollectionViewCell?) {
+        let rightPixel = gameEngine.didSelectPixel(at.item) {
+            if let bg = $0 {
+                onCell?.backgroundColor = bg
+            }
+            playHeader?.score.text = "\($1)"
+        }
+        
+        if rightPixel {
+            gameEngine.intentToChangeTarget() { playHeader?.target.backgroundColor = $0 }
+        }
+        else {
+            wrongTarget(true)
+        }
+    }
+    
+    func wrongTarget(_ wrong: Bool) {
+        if wrong {
+            //playHeader?.backgroundColor = UIColor.red
+            //if playHeader?.target.backgroundColor != UIColor.red {
+                playHeader?.target.borderColor = UIColor.red
+            playHeader?.target.borderWidth = 3
+            /*}
+            else {
+                playHeader?.target.borderColor = UIColor.red
+            }*/
+        }
+        else {
+            playHeader?.target.borderColor = UIColor.darkGray
+            playHeader?.target.borderWidth = 0
+            //playHeader?.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+        }
+        
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -77,22 +138,23 @@ extension PlayViewController {
     override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.shadowOpacity = 0.0
-        cell?.layer.borderColor = UIColor.black.cgColor
+        cell?.layer.borderWidth = 1
         
-        let rightPixel = gameEngine.didSelectPixel(indexPath.item) {
-            if $0 != nil {
-                cell?.backgroundColor = $0
-            }
-            playHeader?.score.text = "\($1)"
+        if !gameEngine.started {
+            startGameEngine()
         }
-        if rightPixel {
-            gameEngine.intentToChangeTarget() { playHeader?.target.backgroundColor = $0 }
+        
+        if !gameEngine.ended {
+            handlePlayerTouch(at: indexPath, onCell: cell)
         }
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.layer.shadowOpacity = 1.0
-        collectionView.cellForItem(at: indexPath)?.layer.borderColor = UIColor.darkGray.cgColor
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.layer.shadowOpacity = 1.0
+        cell?.layer.borderWidth = 0
+        
+        wrongTarget(false)
     }
 }
 

@@ -13,26 +13,22 @@ class MainViewController: UIViewController {
 
     // MARK: Actions
     @IBAction func play(_ sender: MenuButton) {
+        startPlayViewController(3, 3)
+    }
+    
+    @IBAction func pixels(_ sender: MenuButton) {
+        startPlayViewController(4, 5)
+    }
+    
+    @IBAction func settings(_ sender: MenuButton) {
+        startPlayViewController(5, 7)
+    }
+    
+    func startPlayViewController(_ itemPerLine: Int, _ line:Int) {
         let storyboard = UIStoryboard(name: "PlayStoryboard", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "PlayViewController")
+        let controller = storyboard.instantiateViewController(withIdentifier: "PlayViewController") as! PlayViewController
+        controller.gameEngine.itemPerLine = itemPerLine
+        controller.gameEngine.line = line
         self.present(controller, animated: true, completion: nil)
     }
-    @IBAction func pixels(_ sender: MenuButton) {
-    }
-    @IBAction func settings(_ sender: MenuButton) {
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
-

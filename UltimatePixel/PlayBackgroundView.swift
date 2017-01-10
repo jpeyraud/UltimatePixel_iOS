@@ -1,20 +1,14 @@
 //
-//  PlayHeader.swift
+//  PlayCollectionView.swift
 //  UltimatePixel
 //
-//  Created by JeremyX Peyraud on 01/01/2017.
+//  Created by JeremyX Peyraud on 08/01/2017.
 //  Copyright © 2017 Altarrys. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class PlayHeader: UICollectionReusableView {
-    @IBOutlet weak var target: HeaderButton!
-    @IBOutlet weak var time: HeaderLabel!
-    @IBOutlet weak var instructionLabel: UILabel!
-    @IBOutlet weak var targetLabel: UILabel!
-    @IBOutlet weak var score: HeaderLabel!
+class PlayBackgroundview: UIView {
     
     private let gradientLayer = CAGradientLayer()
     
@@ -34,19 +28,15 @@ class PlayHeader: UICollectionReusableView {
     func configureGradient() {
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        gradientLayer.type = kCAGradientLayerAxial
         updateColors()
-        layer.insertSublayer(gradientLayer, at: 0)
+        layer.addSublayer(gradientLayer)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         gradientLayer.frame = bounds
-        clipsToBounds = true
-        layer.shadowOffset = CGSize(width: 0.0, height: 0.0);
-        layer.shadowRadius = 3.0;
-        layer.shadowOpacity = 1.0;
-        layer.masksToBounds = false;
     }
     
     private func updateColors() {

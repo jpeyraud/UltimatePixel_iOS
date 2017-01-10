@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AudioToolbox
 
 enum PixelColor: UInt32 {
     case white = 255
@@ -21,24 +22,33 @@ typealias UpdateTargetUI = (_ withColor: UIColor) -> Void
 
 class GameEngineController {
     
-    let itemPerLine: Int
-    let line: Int
+    var started: Bool
+    var ended: Bool
+    var itemPerLine: Int
+    var line: Int
+    let timerInterval: Double
+    var time: Double
+    fileprivate var timer: Timer?
     fileprivate var score: Int
-    fileprivate var time: Int
     fileprivate let colors: UInt32
     fileprivate var target: PixelColor
     fileprivate let targetChangeRatePerCent: UInt32
     fileprivate var pixels: [PixelColor]
+    fileprivate var updateTimerUI: ()->()
 
     init() {
-        itemPerLine = 4
-        line = 5
+        started = false
+        ended = false
+        itemPerLine = 5  // small 3x3, medium 4x5, big 5x7
+        line = 7
+        timerInterval = 0.1
+        time = 20.0
         score = 0
-        time = 0
         colors = 3
         target = .white
         targetChangeRatePerCent = 30
         pixels = Array(repeating: PixelColor.white, count: itemPerLine*line)
+        updateTimerUI = {}
     }
     
     fileprivate func createPixel() -> PixelColor {
@@ -65,17 +75,36 @@ class GameEngineController {
     fileprivate func convertToUIColor(_ pixelColor: PixelColor) -> UIColor {
         switch pixelColor {
         case .red:
-            return UIColor.red
+            return UIColor.redPixel
         case .green:
-            return UIColor.green
+            return UIColor.greenPixel
         case .blue:
-            return UIColor.blue
+            return UIColor.bluePixel
         default:
             return UIColor.white
         }
     }
     
     //************************ Public API ************************//
+    
+    func startGame(_ updateTimer: @escaping () -> ()) {
+        updateTimerUI = updateTimer
+        timer = Timer.scheduledTimer(timeInterval: timerInterval,
+                                     target: self,
+                                     selector: #selector(updateTimerSelector),
+                                     userInfo: nil,
+                                     repeats: true)
+        started = true
+    }
+    
+    @objc func updateTimerSelector() {
+        updateTimerUI()
+    }
+    
+    func stopGame() {
+        timer?.invalidate()
+        ended = true
+    }
     
     func newPixel(_ atIndex: Int) -> UIColor {
         let newPixel: PixelColor = self.createPixelDifferentFromTarget()
@@ -98,12 +127,25 @@ class GameEngineController {
     
     func didSelectPixel(_ atIndex: Int, updatePixelUI: UpdatePixelUI) -> Bool {
         guard pixels[atIndex] == target else {
-            score -= 1
-            updatePixelUI(nil, score)
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            time -= 1.0
             return false
         }
+        time += 0.25
         score += 1
         updatePixelUI(newPixel(atIndex), score)
         return true
+    }
+}
+
+extension UIColor {
+    open static var redPixel: UIColor {
+        get{ return UIColor(red: 0.8, green: 0.15, blue: 0.15, alpha: 1.0)}
+    }
+    open static var greenPixel: UIColor {
+        get{ return UIColor(red: 0.12, green: 0.8, blue: 0.12, alpha: 1.0)}
+    }
+    open static var bluePixel: UIColor {
+        get{ return UIColor(red: 0.12, green: 0.12, blue: 0.9, alpha: 1.0)}
     }
 }
