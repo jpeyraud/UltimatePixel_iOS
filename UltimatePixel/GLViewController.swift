@@ -101,9 +101,7 @@ class GLViewController: GLKViewController {
         glDrawElements(GLenum(GL_TRIANGLES), GLsizei(indices.count), GLenum(GL_UNSIGNED_BYTE), nil)
         
         glDisableVertexAttribArray(VertexAttributes.Position.rawValue)
-        
     }
-    
 }
 
 extension GLViewController {
@@ -120,7 +118,7 @@ extension GLViewController {
     }
     
     func setupShader() {
-        self.shader = BaseEffect(vertexShader: "SimpleVertexShader.glsl", fragmentShader: "SquareFragmentShader.glsl")
+        self.shader = BaseEffect(vertexShader: "SimpleVertexShader.glsl", fragmentShader: "CristalVoronoiFragmentShader.glsl")
     }
     
     func setupVertexBuffer() {
